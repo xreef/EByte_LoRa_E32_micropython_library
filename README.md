@@ -33,14 +33,21 @@
 Here an example of constructor, you must pass the UART interface and (if you want, but It's reccomended)
 the AUX pin, M0 and M1.
 
+### Installation
+To install the library execute the following command:
+
+```bash
+pip install ebyte-lora-e32
+```
+
 #### Initialization
 
 ```python
-from micropython.lora_e32 import LoRaE32
+from lora_e32 import LoRaE32
 from machine import UART
 
 uart2 = UART(2)
-lora = LoRaE32('433T20D', uart2, aux_pin=15, m0_pin=19, m1_pin=21)
+lora = LoRaE32('433T20D', uart2, aux_pin=15, m0_pin=21, m1_pin=19)
 ```
 #### Start the module transmission
 
@@ -52,8 +59,8 @@ print(ResponseStatusCode.get_description(code))
 #### Get Configuration
 
 ```python
-from micropython.lora_e32 import LoRaE32, print_configuration, Configuration
-from micropython.lora_e32_operation_constant import ResponseStatusCode
+from lora_e32 import LoRaE32, print_configuration, Configuration
+from lora_e32_operation_constant import ResponseStatusCode
 
 code, configuration = lora.get_configuration()
 

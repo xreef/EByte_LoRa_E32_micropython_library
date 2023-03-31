@@ -20,7 +20,7 @@ from machine import UART
 uart2 = UART(2)
 
 # Create a LoRaE32 object, passing the UART object and pin configurations
-lora = LoRaE32('433T20D', uart2, aux_pin=15, m0_pin=19, m1_pin=21)
+lora = LoRaE32('433T20D', uart2, aux_pin=15, m0_pin=21, m1_pin=19)
 
 # Initialize the LoRa module and print the initialization status code
 code = lora.begin()

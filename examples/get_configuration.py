@@ -15,7 +15,7 @@ from machine import UART
 
 uart2 = UART(2)
 
-lora = LoRaE32('433T20D', uart2, aux_pin=15, m0_pin=19, m1_pin=21)
+lora = LoRaE32('433T20D', uart2, aux_pin=15, m0_pin=21, m1_pin=19)
 
 code = lora.begin()
 print("Initialization: {}", ResponseStatusCode.get_description(code))

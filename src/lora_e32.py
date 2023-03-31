@@ -451,12 +451,13 @@ class LoRaE32:
         self.write_program_command(ProgramCommand.READ_CONFIGURATION)
 
         data = self.uart.read()
-        logger.debug("data: {}".format(data))
-        logger.debug("data len: {}".format(len(data)))
 
         if data is None or len(data) != 6:
             code = ResponseStatusCode.ERR_E32_DATA_SIZE_NOT_MATCH
             return code, None
+
+        logger.debug("data: {}".format(data))
+        logger.debug("data len: {}".format(len(data)))
 
         logger.debug("model: {}".format(self.model))
         configuration = Configuration(self.model)
