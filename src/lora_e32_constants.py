@@ -1,3 +1,30 @@
+class Logger:
+    def __init__(self, enable_debug):
+        self.enable_debug = enable_debug
+        self.name = ''
+
+    def debug(self, msg, *args):
+        if self.enable_debug:
+            print(self.name + ' DEBUG ' + msg, *args)
+
+    def info(self, msg, *args):
+        if self.enable_debug:
+            print(self.name + ' INFO ' + msg, *args)
+
+    def error(self, msg, *args):
+        if self.enable_debug:
+            print(self.name + ' ERROR ' + msg, *args)
+
+    def getLogger(self, name):
+        self.name = name
+        return Logger(self.enable_debug)
+
+
+logging = Logger(False)
+
+logger = logging.getLogger(__name__)
+
+
 class UARTParity:
     MODE_00_8N1 = 0b00
     MODE_01_8O1 = 0b01
@@ -273,6 +300,9 @@ class TransmissionPower37:
 
     @staticmethod
     def get_description(transmission_power):
+        logger.debug("TransmissionPower37.get_description: transmission_power = %s", transmission_power)
+        logger.debug("TransmissionPower37.POWER_37_00: transmission_power = %s", TransmissionPower37.POWER_37_00)
+
         if transmission_power == TransmissionPower37.POWER_37_00:
             return "37dBm (Default)"
         elif transmission_power == TransmissionPower37.POWER_37_01:
@@ -335,6 +365,9 @@ class TransmissionPower:
             self.package_type = model[6]
             self.frequency = int(model[0:3])
             self.transmission_power = int(model[4:6])
+            logger.debug("Package type: " + self.package_type)
+            logger.debug("Frequency: " + str(self.frequency))
+            logger.debug("Transmission power: " + str(self.transmission_power))
 
     def get_transmission_power(self):
         if self.transmission_power == 20:
@@ -351,15 +384,4 @@ class TransmissionPower:
             return "Invalid transmission power param"
 
     def get_transmission_power_description(self, transmission_power):
-        if self.transmission_power == 20:
-            return TransmissionPower20.get_description(transmission_power)
-        elif self.transmission_power == 27:
-            return TransmissionPower27.get_description(transmission_power)
-        elif self.transmission_power == 30:
-            return TransmissionPower30.get_description(transmission_power)
-        elif self.transmission_power == 33:
-            return TransmissionPower33.get_description(transmission_power)
-        elif self.transmission_power == 37:
-            return TransmissionPower37.get_description(transmission_power)
-        else:
-            return "Invalid transmission power param"
+        return self.get_transmission_power().get_description(transmission_power)
