@@ -268,7 +268,7 @@ class LoRaE32:
         self.uart = uart
         self.model = model
 
-        pattern = '^(400|433|868|900|915|170)(T|M)(20|27|30)(S|D|C)?..?(\\d)?$'
+        pattern = '^(400|433|868|900|915|170)(T|R|S|M)(20|27|30)(S|D|C)?..?(\\d)?$'
 
         model_regex = ure.compile(pattern)
         if not model_regex.match(model):
